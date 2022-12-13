@@ -18,17 +18,15 @@ class TextElement extends FormElement {
     constructor({name, type, value, placeholder}) {
         super(name, type, value);
         this.placeholder = placeholder;
-        this.name = name;
-        this.type = type;
     }
 
     createTextInput() {
-        this._el = document.createElement("input");
-        this._el.setAttribute("name", this.name);
-        this._el.setAttribute("type", this.type);
-        this._el.setAttribute("placeholder", this.placeholder);
-        this._el.addEventListener("change", () => {
-            this.value = this._el.value;
+        this.element = document.createElement("input");
+        this.element.setAttribute("name", this.name);
+        this.element.setAttribute("type", this.type);
+        this.element.setAttribute("placeholder", this.placeholder);
+        this.element.addEventListener("change", () => {
+            this.value = this.element.value;
         })
     }
 }
@@ -39,12 +37,12 @@ const newTextInput = new TextElement({
     placeholder: "Your name"
 })
 newTextInput.createTextInput();
-document.querySelector(".form").append(newTextInput._el);
+document.querySelector(".form").append(newTextInput.element);
 
 class CheckBoxElement extends FormElement {
     constructor({type, checked}) {
         super(type);
-        this.type = type;
+        this.type = "checkbox";
         this.checked = checked;
     }
 
@@ -56,7 +54,6 @@ class CheckBoxElement extends FormElement {
 }
 
 const newCheckBox = new CheckBoxElement({
-    type: "checkbox",
     checked: false
 })
 newCheckBox.createCheckBox();
